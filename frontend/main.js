@@ -268,3 +268,7 @@ const categoryDropdown = document.getElementById("category-dropdown");
 categoryDropdown.addEventListener("click", function (event) {  
   document.getElementById("category-header").innerHTML = event.target.textContent;
 });
+
+// just to test connection to backend, remove when it works for everyone
+fetch('http://localhost:8080/api/hello')
+  .then(res => console.log(res));
