@@ -1,0 +1,103 @@
+.scale-on-hover {
+    transition: transform 0.3s ease-in-out;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.05);
+}
+
+.card-image-container {
+    height: 13rem;
+}
+
+.card-image-custom {
+    max-height: 13rem;
+}
+
+.btn-custom {
+    background-color: #EB5E28;
+    border: none;
+    color: white;
+}
+
+.btn-custom:hover {
+    background-color: #e64a19;
+}
+
+.btn-custom-dropdown {
+    background-color: #EB5E28;
+    border: none;
+    color: white;
+}
+.btn-custom-dropdown:hover {
+    background-color: #e64a19;
+}
+
+.container-custom {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.text-content h1 {
+    font-size: 5rem;
+}
+
+.text-content p {
+    font-size: 1.1rem;
+    max-width: 75%;
+}
+
+.image-container img {
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    max-height: 50rem;
+}
+
+@media (max-width: 767px) {
+    .container-custom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-content h1 {
+        font-size: 3rem;
+    }
+
+    .text-content p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .image-container img {
+        width: 80%;
+        margin-top: 20px;
+    }
+}
+
+.text-orange {
+    color: #EB5E28;
+}
+
+.cart-image-custom {
+    max-height: 7rem;
+}
+
+.text-bg-custom {
+    background-color: #f1f1f1;
+}
+
+.green {
+    fill: #6DB274;
+}
+
+.btn-nobtn {
+    cursor: default;
+}
+
+.btn-nobtn:hover {
+    cursor: default;
+    background-color: #f1f1f1;
+}
