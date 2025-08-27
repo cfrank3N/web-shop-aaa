@@ -5,6 +5,7 @@ frontend/dist/
 # Backend
 backend/target/
 backend/.idea/
+backend/.gradle/
 *.iml
 .idea/
 
