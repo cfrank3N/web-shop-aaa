@@ -270,5 +270,9 @@ categoryDropdown.addEventListener("click", function (event) {
 });
 
 // just to test connection to backend, remove when it works for everyone
-fetch('http://localhost:8080/api/hello')
+fetch('http://localhost:8080/api/hello', {
+  headers: {
+    'X-API-KEY': 'secret key'
+  }
+})
   .then(res => console.log(res));
