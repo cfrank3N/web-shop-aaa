@@ -7,7 +7,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
-
+//This is needed for browsers to allow requests from frontend to backend.
 @Configuration
 public class CorsConfig {
 
