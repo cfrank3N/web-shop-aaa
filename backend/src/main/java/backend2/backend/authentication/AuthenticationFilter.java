@@ -1,5 +1,6 @@
 package backend2.backend.authentication;
 
+import backend2.backend.service.AuthenticationService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -17,7 +18,7 @@ import java.io.PrintWriter;
 public class AuthenticationFilter extends GenericFilterBean {
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
         try {
             Authentication authentication = AuthenticationService.getAuthentication((HttpServletRequest) request);

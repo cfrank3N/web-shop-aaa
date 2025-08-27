@@ -1,5 +1,6 @@
 package backend2.backend.service;
 
+import backend2.backend.authentication.ApiKeyAuthentication;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
