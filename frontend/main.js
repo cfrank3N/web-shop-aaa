@@ -174,7 +174,7 @@ function closeSuccessfulPurchaseModal() {
 let products = [];
 async function fetchProducts() {
   try {
-    const response = await fetch('https://fakestoreapi.com/products');
+    const response = await fetch('http://localhost:8080/api/getAllProducts');
     products = await response.json();
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -265,10 +265,7 @@ function populateProductPopUp(index){
 }
 
 const categoryDropdown = document.getElementById("category-dropdown");
+if (categoryDropdown != null) {
 categoryDropdown.addEventListener("click", function (event) {  
-  document.getElementById("category-header").innerHTML = event.target.textContent;
-});
-
-// just to test connection to backend, remove when it works for everyone
-fetch('http://localhost:8080/api/hello')
-  .then(res => console.log(res));
+    document.getElementById("category-header").innerHTML = event.target.textContent;
+})};
