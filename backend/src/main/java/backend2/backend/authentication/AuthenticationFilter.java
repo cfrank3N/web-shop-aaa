@@ -20,11 +20,21 @@ public class AuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
+
+
         try {
-            Authentication authentication = AuthenticationService.getAuthentication((HttpServletRequest) request);
+
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+
+            if (!httpRequest.getRequestURI().startsWith("/api/")) {
+                return;
+            }
+
+            Authentication authentication = AuthenticationService.getAuthentication((HttpServletRequest) httpRequest);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
+
         } catch (Exception e) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
