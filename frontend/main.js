@@ -174,7 +174,11 @@ function closeSuccessfulPurchaseModal() {
 let products = [];
 async function fetchProducts() {
   try {
-    const response = await fetch('http://localhost:8080/api/getAllProducts');
+    const response = await fetch('http://localhost:8080/api/getAllProducts', {
+      headers: {
+        'X-API-KEY': 'secret key'
+      }
+    });
     products = await response.json();
   } catch (error) {
     console.error("Error fetching products:", error);
