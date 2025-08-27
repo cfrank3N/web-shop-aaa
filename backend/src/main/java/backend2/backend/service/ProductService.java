@@ -2,6 +2,7 @@ package backend2.backend.service;
 
 import backend2.backend.entities.Product;
 import backend2.backend.repository.ProductRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -30,5 +31,9 @@ public class ProductService {
         } catch (RuntimeException e){
             System.err.println("Error connecting to API: " + e.getMessage());
         }
+    }
+
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok().body(repo.findAll());
     }
 }
