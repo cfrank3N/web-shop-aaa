@@ -21,7 +21,7 @@ public class Role {
 
     @NotBlank
     @Column(nullable = false, unique = true)
-    private String roleType;
+    private String name;
 
 
 
