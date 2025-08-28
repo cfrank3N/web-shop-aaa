@@ -4,17 +4,22 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 @Entity
 public class Product {
     @Id
-    public int id;
-    public String title;
-    public double price;
+    private int id;
+    private String title;
+    private double price;
     @Column(length = 1000)
-    public String description;
-    public String category;
-    public String image;
+    private String description;
+    private String category;
+    private String image;
     @Embedded
-    public Rating rating;
+    private Rating rating;
 }
