@@ -21,6 +21,15 @@ public class Customer {
     private List<Authority> authorities;
     //Add list of orders. Have to decide if we want to have it be embeddable or not
 
+    public Customer(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public Customer() {
+
+    }
+
     public int getId() {
         return id;
     }
