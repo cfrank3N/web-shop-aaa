@@ -16,12 +16,7 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping("api/hello")
-    public String testApi(){
-        return "hello";
-    }
-
-    @GetMapping("api/getAllProducts")
+    @GetMapping("api/products")
     public ResponseEntity<List<Product>> getAllProducts(){
         return service.getAllProducts();
     }
