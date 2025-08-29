@@ -39,7 +39,7 @@ public class SecurityConfig {
         return new CorsFilter(source);
     }
 
-    // BCrypt for hashing of passwords
+    // BCrypt for hashing of password
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
