@@ -24,10 +24,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)  // for dev only, should be enabled in production
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/login", "/register", "/test").permitAll()
-                                .anyRequest().hasAnyRole("ADMIN", "USER"))
-                .formLogin(Customizer.withDefaults())
-                .httpBasic(Customizer.withDefaults());
+                        authorize.requestMatchers("/mytest").permitAll()
+                                .anyRequest().authenticated());
 
         return http.build();
     }

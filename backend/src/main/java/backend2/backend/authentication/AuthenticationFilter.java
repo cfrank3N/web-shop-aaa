@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
@@ -20,29 +21,26 @@ public class AuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
 
+        if (httpRequest.getRequestURI().startsWith("/api/")) {
+            try {
 
-        try {
+                Authentication authentication = AuthenticationService.getAuthentication((HttpServletRequest) httpRequest);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                filterChain.doFilter(request, response);
 
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-            if (!httpRequest.getRequestURI().startsWith("/api/")) {
-                return;
+            } catch (Exception e) {
+                HttpServletResponse httpResponse = (HttpServletResponse) response;
+                httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                httpResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                PrintWriter writer = httpResponse.getWriter();
+                writer.print(e.getMessage());
+                writer.flush();
+                writer.close();
             }
-
-            Authentication authentication = AuthenticationService.getAuthentication((HttpServletRequest) httpRequest);
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } else {
             filterChain.doFilter(request, response);
-
-        } catch (Exception e) {
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            httpResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            PrintWriter writer = httpResponse.getWriter();
-            writer.print(e.getMessage());
-            writer.flush();
-            writer.close();
         }
 
     }

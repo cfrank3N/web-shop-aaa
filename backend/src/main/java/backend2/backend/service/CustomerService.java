@@ -16,8 +16,9 @@ public class CustomerService {
         this.repo = repo;
     }
 
-    public CustomerDTO printAllCustomersAuthorities() {
-        return repo.findById(2).map(CustomerMapper::customerToCustomerDTODetailed).orElse(null);
+    public List<CustomerDTO> printAllCustomers() {
+        System.out.println("printAllCustomers called!");
+        return repo.findAll().stream().map(CustomerMapper::customerToCustomerDTODetailed).toList();
     }
 
     public List<String> printAllCustomersAuthorities2() {
