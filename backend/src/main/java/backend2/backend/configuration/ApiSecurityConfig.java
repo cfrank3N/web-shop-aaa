@@ -18,14 +18,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class ApiSecurityConfig {
 
     @Bean
+    public AuthenticationFilter apiAutheticationFilter() {
+        return new AuthenticationFilter();
+    }
+
+    @Bean
     public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
+                .securityMatcher("/api/**")
                 .csrf(AbstractHttpConfigurer::disable)  // for dev only, should be enabled in production
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers("/api/**").authenticated())
+                        authorizationManagerRequestMatcherRegistry.anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(apiAutheticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

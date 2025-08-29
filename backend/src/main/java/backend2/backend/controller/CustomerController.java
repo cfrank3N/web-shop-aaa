@@ -18,15 +18,27 @@ public class CustomerController {
     }
 
     @GetMapping("/api/test")
-    public CustomerDTO testCustomer() {
-        System.out.println("Endpoint /test used");
-        return service.printAllCustomersAuthorities();
+    public List<CustomerDTO> testCustomer() {
+        System.out.println("Endpoint /api/test used");
+        return service.printAllCustomers();
     }
 
     @GetMapping("/api/test2")
     public List<String> testAuthority() {
         System.out.println("Endpoint /test used");
         return service.printAllCustomersAuthorities2();
+    }
+
+    @GetMapping("/mytest")
+    public List<CustomerDTO> getCustomer() {
+        System.out.println("Endpoint /test used");
+        return service.printAllCustomers();
+    }
+
+    @GetMapping("/restricted")
+    public String restricted() {
+
+        return "This is a restricted endpoint";
     }
 
 }
