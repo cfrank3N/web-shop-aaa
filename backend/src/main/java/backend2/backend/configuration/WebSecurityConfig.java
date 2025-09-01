@@ -21,15 +21,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final JwtUtil jwtUtil;
+    private final UserDetailsService userDetailsService;
 
 
-    public WebSecurityConfig(JwtUtil jwtUtil) {
+    public WebSecurityConfig(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     public JwtFilter jwtFilter() {
-        return new JwtFilter(jwtUtil);
+        return new JwtFilter(jwtUtil, userDetailsService);
     }
 
     @Bean
