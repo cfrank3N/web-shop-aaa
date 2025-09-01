@@ -1,17 +1,25 @@
 package backend2.backend.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Customer {
+public class Customer implements UserDetails {
 
     @Id
     @GeneratedValue
     private int id;
     private String username;
     private String password;
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean accountCredentialsNonExpired = true;
+    private boolean accountEnabled = true;
     @ManyToMany
     @JoinTable(
             name = "customer_authorities",
@@ -30,6 +38,22 @@ public class Customer {
 
     }
 
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setAccountCredentialsNonExpired(boolean accountCredentialsNonExpired) {
+        this.accountCredentialsNonExpired = accountCredentialsNonExpired;
+    }
+
+    public void setAccountEnabled(boolean accountEnabled) {
+        this.accountEnabled = accountEnabled;
+    }
+
     public int getId() {
         return id;
     }
@@ -40,6 +64,26 @@ public class Customer {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return accountCredentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return accountEnabled;
     }
 
     public void setUsername(String username) {
@@ -54,8 +98,10 @@ public class Customer {
         this.password = password;
     }
 
-    public List<Authority> getAuthorities() {
-        return authorities;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities.stream()
+                .map(authority ->  new SimpleGrantedAuthority(authority.getAuthority()))
+                .toList();
     }
 
     public void setAuthorities(List<Authority> authorities) {

@@ -3,6 +3,7 @@ package backend2.backend.mappers;
 import backend2.backend.dtos.AppUserDTO;
 import backend2.backend.entities.Authority;
 import backend2.backend.entities.Customer;
+import org.springframework.security.core.GrantedAuthority;
 
 public class CustomerMapper {
     public static AppUserDTO customerToCustomerDTODetailed(Customer c) {
@@ -12,7 +13,7 @@ public class CustomerMapper {
                 .password(c.getPassword())
                 .authorities(c.getAuthorities()
                         .stream()
-                        .map(Authority::getAuthority)
+                        .map(GrantedAuthority::getAuthority)
                         .toList())
                 .build();
     }
