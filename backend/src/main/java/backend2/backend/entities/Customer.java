@@ -20,7 +20,7 @@ public class Customer implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean accountCredentialsNonExpired = true;
     private boolean accountEnabled = true;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_authorities",
             joinColumns = @JoinColumn(name = "customer_id"),

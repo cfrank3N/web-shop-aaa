@@ -1,6 +1,7 @@
 package backend2.backend.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.List;
 
