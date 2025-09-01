@@ -8,6 +8,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -44,9 +47,9 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        if ( username != null) {
+        if ( username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             //TODO: Add SecurityContext here.
-
+            UserDetails userDetails = UserDetailsService.loadByUsername(username);
             request.setAttribute("username", username);
         }
 
