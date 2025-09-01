@@ -1,7 +1,5 @@
 package backend2.backend.service;
 
-import backend2.backend.dtos.AppUserDTO;
-import backend2.backend.mappers.CustomerMapper;
 import backend2.backend.repository.CustomerRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,11 +7,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomUserDetailService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final CustomerRepository repo;
 
-    public CustomUserDetailService(CustomerRepository repo) {
+    public CustomUserDetailsService(CustomerRepository repo) {
         this.repo = repo;
     }
 
