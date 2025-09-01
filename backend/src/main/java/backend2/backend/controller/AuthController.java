@@ -1,19 +1,21 @@
 package backend2.backend.controller;
 
 import backend2.backend.dtos.AppUserDTO;
-import backend2.backend.service.LoginService;
+import backend2.backend.service.AuthService;
 import backend2.backend.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class LoginController {
+public class AuthController {
 
     private final JwtUtil jwtUtil;
-    private final LoginService service;
+    private final AuthService service;
 
-    public LoginController(JwtUtil jwtUtil, LoginService service) {
+    public AuthController(JwtUtil jwtUtil, AuthService service) {
         this.jwtUtil = jwtUtil;
         this.service = service;
     }
@@ -21,7 +23,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AppUserDTO appUser) {
 
-        //validate user here from LoginService Class
+        //validate user here from AuthService Class
 
         //Test sout's
         System.out.println("Authorities: " + appUser.getAuthorities());
@@ -29,7 +31,7 @@ public class LoginController {
         System.out.println("Password: " + appUser.getPassword());
 
         if (service.validateUserCredentials(appUser)) {
-            return ResponseEntity.ok().body(jwtUtil.generateToken(appUser.getUsername()));
+            return ResponseEntity.ok().body(jwtUtil.generateToken(service.getCustomerByUsername(appUser.getUsername())));
         } else {
             return ResponseEntity.badRequest().body("Invalid password or Username");
         }
@@ -39,6 +41,12 @@ public class LoginController {
     @GetMapping("/restricted-view")
     public String accessRestrictedView() {
         return "You have access to this restricted view";
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String accessAdminView() {
+        return "You are an ADMIN";
     }
 
 }
