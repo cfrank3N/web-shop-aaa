@@ -43,6 +43,12 @@ public class AuthController {
         return "You have access to this restricted view";
     }
 
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
+    public String accessUserView() {
+        return "You are a user";
+    }
+
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public String accessAdminView() {
