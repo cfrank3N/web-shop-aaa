@@ -1,8 +1,9 @@
 package backend2.backend.controller;
 
 import backend2.backend.dtos.AppUserDTO;
+import backend2.backend.service.LoginService;
 import backend2.backend.util.JwtUtil;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,13 +11,15 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     private final JwtUtil jwtUtil;
+    private final LoginService service;
 
-    public LoginController(JwtUtil jwtUtil) {
+    public LoginController(JwtUtil jwtUtil, LoginService service) {
         this.jwtUtil = jwtUtil;
+        this.service = service;
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody AppUserDTO appUser) {
+    public ResponseEntity<String> login(@RequestBody AppUserDTO appUser) {
 
         //validate user here from LoginService Class
 
@@ -25,7 +28,12 @@ public class LoginController {
         System.out.println("Username: " + appUser.getUsername());
         System.out.println("Password: " + appUser.getPassword());
 
-        return jwtUtil.generateToken(appUser.getUsername());
+        if (service.validateUserCredentials(appUser)) {
+            return ResponseEntity.ok().body(jwtUtil.generateToken(appUser.getUsername()));
+        } else {
+            return ResponseEntity.badRequest().body("Invalid password or Username");
+        }
+
     }
 
     @GetMapping("/restricted-view")
