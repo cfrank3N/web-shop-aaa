@@ -100,7 +100,7 @@ public class Customer implements UserDetails {
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities.stream()
-                .map(authority ->  new SimpleGrantedAuthority(authority.getAuthority()))
+                .map(authority ->  new SimpleGrantedAuthority("ROLE_" + authority.getAuthority()))
                 .toList();
     }
 

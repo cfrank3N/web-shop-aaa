@@ -3,19 +3,19 @@ package backend2.backend.service;
 import backend2.backend.dtos.AppUserDTO;
 import backend2.backend.entities.Customer;
 import backend2.backend.repository.CustomerRepository;
-import jdk.jshell.spi.ExecutionControl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class LoginService {
+public class AuthService {
 
     private final CustomerRepository repo;
     private final PasswordEncoder passwordEncoder;
 
-    public LoginService(CustomerRepository repo, PasswordEncoder passwordEncoder) {
+    public AuthService(CustomerRepository repo, PasswordEncoder passwordEncoder) {
         this.repo = repo;
         this.passwordEncoder = passwordEncoder;
     }
@@ -34,6 +34,10 @@ public class LoginService {
         }
 
         return true;
+    }
+
+    public UserDetails getCustomerByUsername(String username) {
+        return repo.findByUsername(username).orElse(null);
     }
 
 }

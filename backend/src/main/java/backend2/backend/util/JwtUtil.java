@@ -3,6 +3,7 @@ package backend2.backend.util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -14,9 +15,11 @@ public class JwtUtil {
     //Bad practice but this is the sha256sum of webshopaaa
     private String secretKey = "84e7478e97c03706e9e99c6e030e7ff35d08b8395454cae56d8fb7afca103f9f";
 
-    public String generateToken(String username) {
+    //TODO: Lägga till claim och ta in UserDetails istället.
+    public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(userDetails.getUsername())
+                .claim("roles", userDetails.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
