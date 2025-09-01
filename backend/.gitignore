@@ -20,6 +20,7 @@ backend/build.gradle
 *.iws
 *.iml
 *.ipr
+.env.properties
 
 ### NetBeans ###
 /nbproject/private/
