@@ -1,6 +1,6 @@
 package backend2.backend.controller;
 
-import backend2.backend.dtos.CustomerDTO;
+import backend2.backend.dtos.AppUserDTO;
 import backend2.backend.service.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +18,7 @@ public class CustomerController {
     }
 
     @GetMapping("/api/test")
-    public List<CustomerDTO> testCustomer() {
+    public List<AppUserDTO> testCustomer() {
         System.out.println("Endpoint /api/test used");
         return service.printAllCustomers();
     }
@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @GetMapping("/mytest")
-    public List<CustomerDTO> getCustomer() {
+    public List<AppUserDTO> getCustomer() {
         System.out.println("Endpoint /test used");
         return service.printAllCustomers();
     }

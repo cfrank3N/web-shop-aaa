@@ -1,6 +1,6 @@
 package backend2.backend.service;
 
-import backend2.backend.dtos.CustomerDTO;
+import backend2.backend.dtos.AppUserDTO;
 import backend2.backend.mappers.CustomerMapper;
 import backend2.backend.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class CustomerService {
         this.repo = repo;
     }
 
-    public List<CustomerDTO> printAllCustomers() {
+    public List<AppUserDTO> printAllCustomers() {
         System.out.println("printAllCustomers called!");
         return repo.findAll().stream().map(CustomerMapper::customerToCustomerDTODetailed).toList();
     }

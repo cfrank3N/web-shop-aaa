@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class CustomerDTO {
+public class AppUserDTO {
     private int id;
     private String username;
     private String password;
