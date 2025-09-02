@@ -1,16 +1,19 @@
 package backend2.backend.entities;
 
+import io.netty.handler.codec.socks.SocksAuthRequest;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class AppUser implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
     private String username;
     private String password;
@@ -18,15 +21,15 @@ public class AppUser implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean accountCredentialsNonExpired = true;
     private boolean accountEnabled = true;
-    /*@ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "customer_authorities",
-            joinColumns = @JoinColumn(name = "customer_id"),
+            name = "app_user_authorities",
+            joinColumns = @JoinColumn(name = "app_user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private List<Authority> authorities;
     //Add list of orders. Have to decide if we want to have it be embeddable or not
-*/
+
     public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
@@ -97,10 +100,12 @@ public class AppUser implements UserDetails {
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities.stream()
+                .map(authority ->  new SimpleGrantedAuthority("ROLE_" + authority.getAuthority()))
+                .toList();
     }
-//
-//    public void setAuthorities(List<Authority> authorities) {
-//        this.authorities = authorities;
-//    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
 }
