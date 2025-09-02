@@ -1,7 +1,7 @@
 package backend2.backend.repository.seeder;
 
+import backend2.backend.entities.AppUser;
 import backend2.backend.entities.Authority;
-import backend2.backend.entities.Customer;
 import backend2.backend.repository.AuthorityRepository;
 import backend2.backend.repository.CustomerRepository;
 import jakarta.annotation.PostConstruct;
@@ -36,8 +36,8 @@ public class DatabaseSeeder {
 
             authorityRepository.saveAll(List.of(authority1, authority2));
 
-            Customer c1 = new Customer("frank", passwordEncoder.encode("hej123"));
-            Customer c2 = new Customer("carro", passwordEncoder.encode("abc123"));
+            AppUser c1 = new AppUser("frank", passwordEncoder.encode("hej123"));
+            AppUser c2 = new AppUser("carro", passwordEncoder.encode("abc123"));
             c1.setAuthorities(List.of(authority1, authority2));
             c2.setAuthorities(List.of(authority1));
 

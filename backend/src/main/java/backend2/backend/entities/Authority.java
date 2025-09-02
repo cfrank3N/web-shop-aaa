@@ -1,7 +1,6 @@
 package backend2.backend.entities;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class Authority {
     @GeneratedValue
     private int id;
     @ManyToMany(mappedBy = "authorities")
-    private List<Customer> customers;
+    private List<AppUser> appUsers;
     private String authority;
 
     public int getId() {
@@ -23,12 +22,12 @@ public class Authority {
         this.id = id;
     }
 
-    public List<Customer> getCustomers() {
-        return customers;
+    public List<AppUser> getCustomers() {
+        return appUsers;
     }
 
-    public void setCustomers(List<Customer> customer) {
-        this.customers = customer;
+    public void setCustomers(List<AppUser> appUser) {
+        this.appUsers = appUser;
     }
 
     public String getAuthority() {
