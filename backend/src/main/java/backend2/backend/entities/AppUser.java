@@ -1,5 +1,6 @@
 package backend2.backend.entities;
 
+import io.netty.handler.codec.socks.SocksAuthRequest;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
