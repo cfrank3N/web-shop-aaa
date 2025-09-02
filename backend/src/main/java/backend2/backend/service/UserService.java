@@ -1,7 +1,7 @@
 package backend2.backend.service;
 
 import backend2.backend.entities.Role;
-import backend2.backend.entities.User;
+import backend2.backend.entities.AppUser;
 import backend2.backend.repository.RoleRepository;
 import backend2.backend.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -24,7 +24,7 @@ public class UserService {
     }
 
     @Transactional
-    public User registerCustomer(String username, String rawPassword) {
+    public AppUser registerCustomer(String username, String rawPassword) {
         userRepository.findByUsername(username).ifPresent(u -> {
             throw new IllegalArgumentException("Username already in use");
         });
@@ -34,14 +34,14 @@ public class UserService {
                         Role.builder().name("CUSTOMER").build()
                 ));
 
-        User user = User.builder()
+        AppUser appUser = AppUser.builder()
                 .username(username)
                 .password(passwordEncoder.encode(rawPassword))
                 .enabled(true)
                 .build();
 
-        user.getRoles().add(customerRole);
+        appUser.getRoles().add(customerRole);
 
-        return userRepository.save(user);
+        return userRepository.save(appUser);
     }
 }
