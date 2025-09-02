@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Customer implements UserDetails {
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -29,12 +29,12 @@ public class Customer implements UserDetails {
     private List<Authority> authorities;
     //Add list of orders. Have to decide if we want to have it be embeddable or not
 
-    public Customer(String username, String password) {
+    public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Customer() {
+    public AppUser() {
 
     }
 

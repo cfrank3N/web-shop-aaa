@@ -4,7 +4,6 @@ import backend2.backend.dtos.AppUserDTO;
 import backend2.backend.service.AuthService;
 import backend2.backend.util.JwtUtil;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +30,7 @@ public class AuthController {
         System.out.println("Password: " + appUser.getPassword());
 
         if (service.validateUserCredentials(appUser)) {
-            return ResponseEntity.ok().body(jwtUtil.generateToken(service.getCustomerByUsername(appUser.getUsername())));
+            return ResponseEntity.ok().body(jwtUtil.generateToken(service.getAppUserByUsername(appUser.getUsername())));
         } else {
             return ResponseEntity.badRequest().body("Invalid password or Username");
         }
