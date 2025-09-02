@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)  // for dev only, should be enabled in production
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize ->
-                        authorize.requestMatchers("/auth/login", "/api/**").permitAll()
+                        authorize.requestMatchers("/auth/login", "/api/**", "/register").permitAll()
                                 .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 

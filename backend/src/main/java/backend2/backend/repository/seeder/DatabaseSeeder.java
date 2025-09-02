@@ -3,7 +3,7 @@ package backend2.backend.repository.seeder;
 import backend2.backend.entities.AppUser;
 import backend2.backend.entities.Authority;
 import backend2.backend.repository.AuthorityRepository;
-import backend2.backend.repository.CustomerRepository;
+import backend2.backend.repository.AppUserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -13,11 +13,11 @@ import java.util.List;
 @Component
 public class DatabaseSeeder {
 
-    private final CustomerRepository customerRepository;
+    private final AppUserRepository customerRepository;
     private final AuthorityRepository authorityRepository;
 
 
-    public DatabaseSeeder(CustomerRepository customerRepository, AuthorityRepository authorityRepository) {
+    public DatabaseSeeder(AppUserRepository customerRepository, AuthorityRepository authorityRepository) {
         this.customerRepository = customerRepository;
         this.authorityRepository = authorityRepository;
     }
