@@ -34,7 +34,7 @@ function loadCart() {
             </div>
           </div>
         </div>`
-      if (i == 0) {    //first row contains two columns, one for the product and one for order summary
+      if (i === 0) {    //first row contains two columns, one for the product and one for order summary
         cartOutput += `
         <div class="col-sm-3">
           <div class="card p-4 border-0 rounded-5 shadow-sm">
@@ -56,7 +56,7 @@ function loadCart() {
 function removeItem(itemIndex){
   let cart = JSON.parse(localStorage.getItem("cart"));
   cart.splice(itemIndex, 1);
-  if (cart.length == 0){
+  if (cart.length === 0){
     emptyCart();
   } else {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -66,7 +66,7 @@ function removeItem(itemIndex){
 
 function changeQty(index, changeBy){
   let cart = JSON.parse(localStorage.getItem("cart"));
-  if (cart[index].qty == 1 && changeBy == -1){
+  if (cart[index].qty === 1 && changeBy === -1){
     removeItem(index);
   } else {
     cart[index].qty = cart[index].qty + changeBy;
@@ -152,25 +152,60 @@ function validateFields(e) {
     values.forEach(value => value.classList.contains("is-valid") ? validInputs ++ : validInputs -= 1 );
 
     if (validInputs === values.length) {
-      let success = new bootstrap.Modal(document.getElementById("paymentAccepted"));
-      success.show();
+      postOrder();
     }
   }
 }
 //End of validation script
 
-//Close successful purchase modal, clear Local Storage and go back to homepage
-function closeSuccessfulPurchaseModal() {
+//Post order to backend
+function postOrder(){
   let success = new bootstrap.Modal(document.getElementById("paymentAccepted"));
   const message = document.getElementById("message");
 
   let cart = [];
 
   if (localStorage.getItem("cart") === null) {
-    message.innerText = "No products in cart"
+    message.innerText = "No products in cart"; //Byt icon i popup 
+    success.show();
+    return;
   } else {
     cart = JSON.parse(localStorage.getItem("cart"));
   }
+  console.log(cart);
+  let productIds = [];
+  cart.forEach((prod) => productIds.push(prod.id));
+  console.log(productIds);
+
+  let order = {
+    "appUserId": 1, //How do we get the user id?
+    "orderedProductIds": productIds //could this simply be cart?
+  }
+  console.log(order);
+  
+  const headers = new Headers;
+  headers.set("Content-Type", "application/json");
+  headers.set("Accept", "application/json"); //behövs denna?
+
+  const request = new Request("http://localhost:8080/api/order", {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(order) //fyll body
+  });
+
+  fetch(request)
+    .then((response) => {
+      if (!response.ok) message.innerText = "Placing order failed"; //Byt icon i popup 
+      else message.innerText = "Thank you for your purchase";
+    }
+  )
+
+  success.show();
+}
+
+//Close successful purchase modal, clear Local Storage and go back to homepage
+function closeSuccessfulPurchaseModal() {
+  let success = new bootstrap.Modal(document.getElementById("paymentAccepted"));
 
   localStorage.removeItem("cart");
   success.hide();
@@ -278,5 +313,5 @@ const categoryDropdown = document.getElementById("category-dropdown");
 if (categoryDropdown != null) {
 categoryDropdown.addEventListener("click", function (event) {  
     document.getElementById("category-header").innerHTML = event.target.textContent;
-})};
+})}
 
