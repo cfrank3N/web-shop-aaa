@@ -1,8 +1,6 @@
 HELP.md
 target/
 .gradle
-backend/build.gradle
-build.gradle
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
