@@ -15,7 +15,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "appuser_id", nullable = false)
-    private AppUser appUserId;
+    private AppUser appUser;
 
     @ElementCollection
     private List<Integer> orderedProductIds;
@@ -23,4 +23,11 @@ public class Order {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    public void setAppUser(AppUser appUser) {
+        this.appUser = appUser;
+    }
+
+    public void setOrderedProductIds(List<Integer> orderedProductIds) {
+        this.orderedProductIds = orderedProductIds;
+    }
 }
