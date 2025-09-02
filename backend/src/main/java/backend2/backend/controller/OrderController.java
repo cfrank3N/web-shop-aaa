@@ -1,5 +1,6 @@
 package backend2.backend.controller;
 
+import backend2.backend.dtos.OrderDTO;
 import backend2.backend.entities.Order;
 import backend2.backend.service.OrderService;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class OrderController {
     }
     // todo make sure sent from same user
     @PostMapping("/order")
-    public ResponseEntity<String> saveOrder(@RequestBody Order order){
+    public ResponseEntity<String> saveOrder(@RequestBody OrderDTO order){
         return service.saveOrder(order);
     }
 
@@ -26,10 +27,10 @@ public class OrderController {
     public ResponseEntity<List<Order>> getAllOrders(){
         return service.getAllOrders();
     }
-//
-//    // todo add auth @PreAuthorize()
-//    @GetMapping("/orders/${id}")
-//    public ResponseEntity<Order> getOrderById(@RequestParam Integer id){
-//        return service.getOrderById(id);
-//    }
+
+    // todo add auth @PreAuthorize()
+    @GetMapping("/order")
+    public ResponseEntity<Order> getOrderById(@RequestParam Integer id){
+        return service.getOrderById(id);
+    }
 }
