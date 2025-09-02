@@ -269,3 +269,4 @@ if (categoryDropdown != null) {
 categoryDropdown.addEventListener("click", function (event) {  
     document.getElementById("category-header").innerHTML = event.target.textContent;
 })};
+
