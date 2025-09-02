@@ -162,6 +162,16 @@ function validateFields(e) {
 //Close successful purchase modal, clear Local Storage and go back to homepage
 function closeSuccessfulPurchaseModal() {
   let success = new bootstrap.Modal(document.getElementById("paymentAccepted"));
+  const message = document.getElementById("message");
+
+  let cart = [];
+
+  if (localStorage.getItem("cart") === null) {
+    message.innerText = "No products in cart"
+  } else {
+    cart = JSON.parse(localStorage.getItem("cart"));
+  }
+
   localStorage.removeItem("cart");
   success.hide();
   setTimeout(
