@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     private final OrdersRepository repo;
@@ -22,5 +24,13 @@ public class OrderService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to place order " + e.getMessage());
         }
+    }
+    // Is exception handling needed?
+    public ResponseEntity<List<Order>> getAllOrders(){
+        return ResponseEntity.ok().body(repo.findAll());
+    }
+
+    public ResponseEntity<Order> getOrderById(Integer id){
+        return ResponseEntity.ok().body(repo.findById(id).orElseThrow());
     }
 }
