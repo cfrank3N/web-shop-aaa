@@ -22,8 +22,8 @@ public class AppUser implements UserDetails {
     private boolean accountEnabled = true;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "customer_authorities",
-            joinColumns = @JoinColumn(name = "customer_id"),
+            name = "app_user_authorities",
+            joinColumns = @JoinColumn(name = "app_user_id"),
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private List<Authority> authorities;
