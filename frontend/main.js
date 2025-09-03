@@ -177,13 +177,12 @@ function postOrder(){
   cart.forEach((prod) => products.set(prod.id, prod.qty));
 
   let order = {
-    "appUserId": 2, //How do we get the user id?
     "productIdAndQty": Object.fromEntries(products)
   }
 
-  const request = new Request("http://localhost:8080/api/order", {
+  const request = new Request("http://localhost:8080/auth/order", {
     method: "POST",
-    headers: {"Content-Type": "application/json", "Accept": "application/json"}, //behövs den andra?
+    headers: {"Content-Type": "application/json", "Accept": "application/json", 'Authorization': 'Bearer ' + sessionStorage.getItem("jwt")},
     body: JSON.stringify(order) 
   });
 
