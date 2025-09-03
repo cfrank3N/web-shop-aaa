@@ -4,22 +4,24 @@ import backend2.backend.dtos.OrderDTO;
 import backend2.backend.entities.Order;
 import backend2.backend.service.OrderService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/auth")
 public class OrderController {
     private final OrderService service;
 
     public OrderController(OrderService service) {
         this.service = service;
     }
-    // todo make sure sent from same user
+
     @PostMapping("/order")
     public ResponseEntity<String> saveOrder(@RequestBody OrderDTO order){
-        return service.saveOrder(order);
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return service.saveOrder(order, userName);
     }
 
     // todo add auth @PreAuthorize()

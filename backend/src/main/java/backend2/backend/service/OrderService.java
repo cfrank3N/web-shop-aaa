@@ -20,10 +20,10 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<String> saveOrder(OrderDTO dto){
+    public ResponseEntity<String> saveOrder(OrderDTO dto, String username){
         try {
             Order order = new Order();
-            order.setAppUser(userRepository.findById(dto.getAppUserId()).orElseThrow());
+            order.setAppUser(userRepository.findByUsername(username).orElseThrow());
             order.setProductIdAndQty(dto.getProductIdAndQty());
 
             repo.save(order);
