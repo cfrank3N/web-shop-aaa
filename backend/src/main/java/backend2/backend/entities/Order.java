@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "orders")
@@ -18,7 +18,7 @@ public class Order {
     private AppUser appUser;
 
     @ElementCollection
-    private List<Integer> orderedProductIds;
+    private Map<Integer, Integer> productIdAndQty;
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -27,7 +27,19 @@ public class Order {
         this.appUser = appUser;
     }
 
-    public void setOrderedProductIds(List<Integer> orderedProductIds) {
-        this.orderedProductIds = orderedProductIds;
+    public void setProductIdAndQty(Map<Integer, Integer> productIdAndQty) {
+        this.productIdAndQty = productIdAndQty;
+    }
+
+    public Order() {
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", appUser=" + appUser +
+                ", productIdAndQty=" + productIdAndQty +
+                '}';
     }
 }

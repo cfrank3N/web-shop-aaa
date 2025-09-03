@@ -22,12 +22,12 @@ public class OrderService {
 
     public ResponseEntity<String> saveOrder(OrderDTO dto){
         try {
-            System.out.println(dto);
             Order order = new Order();
             order.setAppUser(userRepository.findById(dto.getAppUserId()).orElseThrow());
-            order.setOrderedProductIds(dto.getOrderedProductIds());
-            System.out.println(order);
+            order.setProductIdAndQty(dto.getProductIdAndQty());
+
             repo.save(order);
+            System.out.println("Order saved: " + order);
             return ResponseEntity.ok("Order placed");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

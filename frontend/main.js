@@ -172,25 +172,19 @@ function postOrder(){
   } else {
     cart = JSON.parse(localStorage.getItem("cart"));
   }
-  console.log(cart);
-  let productIds = [];
-  cart.forEach((prod) => productIds.push(prod.id));
-  console.log(productIds);
+
+  let products = new Map();
+  cart.forEach((prod) => products.set(prod.id, prod.qty));
 
   let order = {
-    "appUserId": 1, //How do we get the user id?
-    "orderedProductIds": productIds //could this simply be cart?
+    "appUserId": 2, //How do we get the user id?
+    "productIdAndQty": Object.fromEntries(products)
   }
-  console.log(order);
-  
-  const headers = new Headers;
-  headers.set("Content-Type", "application/json");
-  headers.set("Accept", "application/json"); //behövs denna?
 
   const request = new Request("http://localhost:8080/api/order", {
     method: "POST",
-    headers: headers,
-    body: JSON.stringify(order) //fyll body
+    headers: {"Content-Type": "application/json", "Accept": "application/json"}, //behövs den andra?
+    body: JSON.stringify(order) 
   });
 
   fetch(request)
