@@ -44,11 +44,18 @@ async function registerUser(e) {
       invalidFeedback.textContent = errorMessage;
       console.log(errorMessage + "inside the !response.ok");
 
-      passWord.classList.add("is-invalid");
-      username.classList.add("is-invalid");
-
+      if (
+        !passWord.classList.contains("is-invalid") &&
+        !userName.classList.contains("is-invalid")
+      ) {
+        passWord.classList.add("is-invalid");
+        userName.classList.add("is-invalid");
+      }
       return;
     }
+
+    passWord.classList.remove("is-invalid");
+    userName.classList.remove("is-invalid");
 
     const successMessage = await response.text();
 
