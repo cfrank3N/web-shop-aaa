@@ -16,13 +16,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.within;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class FakeStorePersistedDbParity {
+public class FakeStorePersistedDbParityTest {
 
     @Autowired
     private FakeStoreClient fakeStoreClient;
@@ -43,16 +43,24 @@ public class FakeStorePersistedDbParity {
         fakeStoreClient.fetchAndSaveAllProducts();
 
         ApiProduct apiProduct = fetchApiProduct(productId);
-        Product dbProduct = productRepository.findById((int)productId)
+        Product dbProduct = productRepository.findById((int) productId)
                 .orElseThrow(() -> new AssertionError("Product " + productId + "not found in db"));
 
 
         assertThat(dbProduct.getId()).isEqualTo(apiProduct.id().intValue());
         assertThat(dbProduct.getTitle()).isEqualTo(apiProduct.title());
-        assertThat(dbProduct.getPrice()).isEqualTo(apiProduct.price());
+
+        assertThat(dbProduct.getPrice()).isCloseTo(apiProduct.price(), within(1e-6));
         assertThat(dbProduct.getDescription()).isEqualTo(apiProduct.description());
         assertThat(dbProduct.getCategory()).isEqualTo(apiProduct.category());
         assertThat(dbProduct.getImage()).isEqualTo(apiProduct.image());
+
+
+        assertThat(dbProduct.getRating()).isNotNull();
+        assertThat(dbProduct.getRating().getRate())
+                .isCloseTo(apiProduct.rating().rate(), within(1e-6));
+        assertThat(dbProduct.getRating().getCount())
+                .isEqualTo(apiProduct.rating().count());
     }
 
     private ApiProduct fetchApiProduct(long id) throws Exception {
@@ -71,8 +79,11 @@ public class FakeStorePersistedDbParity {
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private record ApiProduct(Long id, String title, Double price, String description, String category, String image, ApiRating rating){}
+    private record ApiProduct(Long id, String title, Double price, String description, String category, String image,
+                              ApiRating rating) {
+    }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    private record ApiRating(Double rate, Integer count){}
+    private record ApiRating(Double rate, Integer count) {
+    }
 }
