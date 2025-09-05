@@ -7,9 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
+@RestController
 public class RegistrationController {
 
     private final AppUserService appUserService;
@@ -19,9 +20,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> handleRegistration(@Valid @RequestBody AppUserDTO appUser) {
+    public ResponseEntity<String> handleRegistration(@RequestBody AppUserDTO appUser) {
         return appUserService.registerCustomer(appUser);
     }
-
 
 }

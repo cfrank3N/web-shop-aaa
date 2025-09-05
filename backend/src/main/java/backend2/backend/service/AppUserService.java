@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -30,26 +32,39 @@ public class AppUserService {
 
     @Transactional
     public ResponseEntity<String> registerCustomer(AppUserDTO newUser) {
-        appUserRepository.findByUsername(newUser.getUsername()).ifPresent(u -> {
-            throw new IllegalArgumentException("Username already in use");
-        });
+        Optional<AppUser> userAlreadyExists = appUserRepository.findByUsername(newUser.getUsername());
+
+        if (userAlreadyExists.isPresent()){
+            return ResponseEntity.badRequest().body("User already exists");
+        }
 
         AppUser appUser = new AppUser(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
 
+        Authority user = authorityRepository.findByAuthority("USER")
+                .orElseThrow(() -> new NoSuchElementException("Role USER does not exist"));
+        Authority admin = authorityRepository.findByAuthority("ADMIN")
+                .orElseThrow(() -> new NoSuchElementException("Role ADMIN does not exist"));
+        List<Authority> userAuthorities = new ArrayList<>();
 
-        Optional<Authority> auth = authorityRepository.findByAuthority("USER");
-        if (auth.isEmpty()) {
-            Authority authority = new Authority();
-            authority.setAuthority("USER");
-            authorityRepository.save(authority);
-            appUser.setAuthorities(List.of(authority));
-            appUserRepository.save(appUser);
-
+        if (newUser.getAuthorities() != null) {
+            if (newUser.getAuthorities().contains("USER")) {
+                userAuthorities.add(user);
+            }
+            if (newUser.getAuthorities().contains("ADMIN")) {
+                userAuthorities.add(admin);
+            }
+            if (newUser.getAuthorities().isEmpty() ||
+                    (!newUser.getAuthorities().contains("USER") &&
+                            !newUser.getAuthorities().contains("ADMIN"))) {
+                userAuthorities.add(user);
+            }
         } else {
-            appUser.setAuthorities(List.of(auth.get()));
-            appUserRepository.save(appUser);
+            userAuthorities.add(user);
         }
 
-        return ResponseEntity.ok().body("User created!");
+        appUser.setAuthorities(userAuthorities);
+        appUserRepository.save(appUser);
+
+        return ResponseEntity.ok().body("User created with roles: " + userAuthorities);
     }
 }
