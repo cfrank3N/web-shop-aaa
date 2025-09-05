@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your cart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+
+  <body>
+    <!--Nav-bar-->
+    <nav
+      class="navbar sticky-top navbar-expand-sm navbar-light bg-white shadow-sm"
+    >
+      <div class="container my-3">
+        <a href="index.html" class="navbar-brand">
+          <h3 class="fw-bold">divra</h3>
+        </a>
+        <button
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          class="navbar-toggler"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto d-flex align-items-center">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="#"
+                class="nav-link"
+                data-bs-toggle="modal"
+                data-bs-target="#aboutModal"
+                >About</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" onclick="scrollToBottom()"
+                >Contact</a
+              >
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a class="nav-link position-relative" href="form.html">
+                <img
+                  class="nav-icon"
+                  src="./img/nav/shopping-cart.png"
+                  alt="Shopping Cart Icon"
+                  height="20"
+                  draggable="false"
+                />
+                <span
+                  id="cart-counter"
+                  class="position-absolute top-25 start-100 translate-middle badge rounded-pill btn-custom"
+                >
+                  <span class="visually-hidden">items in cart</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--End of Nav-bar-->
+
+    <!--Start of Form-->
+    <div class="container">
+      <h3 class="mt-5 mb-3 fw-bold">Register User</h3>
+      <div class="col-sm-7">
+        <form class="form" id="registerForm" novalidate>
+          <div class="mb-3">
+            <label for="username" class="form-label fs-6">Username</label>
+            <input
+              type="text"
+              class="form-control text-bg-custom shadow-sm rounded-pill border-0"
+              id="username"
+              placeholder="frank3N"
+              required
+            />
+            <div class="invalid-feedback my-4" id="error">HEJ FÖRFAN</div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label fs-6">Password</label>
+            <input
+              type="password"
+              class="form-control text-bg-custom shadow-sm rounded-pill border-0"
+              id="password"
+              placeholder="*******"
+              required
+            />
+            <div id="passwordHelpBlock" class="form-text">
+              Your password must be at least 8 characters long.
+            </div>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="USER"
+              id="user"
+              checked
+            />
+            <label class="form-check-label" for="user"> User </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="ADMIN"
+              id="admin"
+            />
+            <label class="form-check-label" for="admin"> Admin </label>
+          </div>
+          <div class="my-4">
+            <button
+              type="submit"
+              class="btn btn-custom text-white shadow rounded-pill"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--End of Form-->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="registerUser.js"></script>
+  </body>
+</html>
