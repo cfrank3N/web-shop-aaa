@@ -42,6 +42,10 @@ group = 'backend-2'
 version = '0.0.1-SNAPSHOT'
 description = 'backend'
 
+test {
+    useJUnitPlatform()
+}
+
 /*
 publishing {
     publications {
