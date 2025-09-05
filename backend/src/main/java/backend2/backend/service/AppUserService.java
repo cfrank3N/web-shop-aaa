@@ -35,7 +35,7 @@ public class AppUserService {
         Optional<AppUser> userAlreadyExists = appUserRepository.findByUsername(newUser.getUsername());
 
         if (userAlreadyExists.isPresent()){
-            return ResponseEntity.badRequest().body("User already exists!!");
+            return ResponseEntity.badRequest().body("User already exists");
         }
 
         AppUser appUser = new AppUser(newUser.getUsername(), passwordEncoder.encode(newUser.getPassword()));
