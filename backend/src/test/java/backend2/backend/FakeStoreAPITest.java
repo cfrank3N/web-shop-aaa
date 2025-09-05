@@ -53,6 +53,7 @@ public class FakeStoreAPITest {
         JsonNode root = mapper.readTree(response.body());
 
         assertThat(root.size()).isGreaterThan(0);
+
         assertThat(root.get("id")).as("id").isNotNull();
         assertThat(root.path("title").asText(null)).as("title").isNotBlank();
         assertThat(root.get("price")).as("price").isNotNull();
