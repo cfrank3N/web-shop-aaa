@@ -49,12 +49,10 @@ public class FakeStorePersistedDbParityTest {
 
         assertThat(dbProduct.getId()).isEqualTo(apiProduct.id().intValue());
         assertThat(dbProduct.getTitle()).isEqualTo(apiProduct.title());
-
         assertThat(dbProduct.getPrice()).isCloseTo(apiProduct.price(), within(1e-6));
         assertThat(dbProduct.getDescription()).isEqualTo(apiProduct.description());
         assertThat(dbProduct.getCategory()).isEqualTo(apiProduct.category());
         assertThat(dbProduct.getImage()).isEqualTo(apiProduct.image());
-
 
         assertThat(dbProduct.getRating()).isNotNull();
         assertThat(dbProduct.getRating().getRate())
