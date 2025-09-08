@@ -359,7 +359,6 @@ function toggleLoginHref(){
   } 
   else {
     loginHref.innerText = "Log out";
-    loginHref.href = "index.html";
   }
 }
 
@@ -368,6 +367,7 @@ document.addEventListener("click", (e) => {
     if (e.target === link && sessionStorage.getItem("jwt")) {
       e.preventDefault();
       sessionStorage.removeItem("jwt");
+      window.location.href = "index.html";
       toggleLoginHref();
     }
   });
