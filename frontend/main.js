@@ -344,3 +344,30 @@ categoryDropdown.addEventListener("click", function (event) {
     document.getElementById("category-header").innerHTML = event.target.textContent;
 })}
 
+
+document.addEventListener("DOMContentLoaded", toggleLoginHref);
+
+function toggleLoginHref(){
+  const loginHref = document.getElementById("log-in-href");
+  
+  if (loginHref === null){
+    return;
+  }
+  if (sessionStorage.getItem("jwt") === null){
+    loginHref.href = "login.html";
+    loginHref.innerText = "Log in";
+  } 
+  else {
+    loginHref.innerText = "Log out";
+    loginHref.href = "index.html";
+  }
+}
+
+document.addEventListener("click", (e) => {
+    const link = document.getElementById("log-in-href");
+    if (e.target === link && sessionStorage.getItem("jwt")) {
+      e.preventDefault();
+      sessionStorage.removeItem("jwt");
+      toggleLoginHref();
+    }
+  });
