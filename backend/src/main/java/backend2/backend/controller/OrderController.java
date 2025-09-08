@@ -4,7 +4,7 @@ import backend2.backend.dtos.OrderDTO;
 import backend2.backend.entities.Order;
 import backend2.backend.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,19 +19,19 @@ public class OrderController {
     }
 
     @PostMapping("/order")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<String> saveOrder(@RequestBody OrderDTO order){
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        return service.saveOrder(order, userName);
+        return service.saveOrder(order);
     }
 
-    // todo add auth @PreAuthorize()
     @GetMapping("/orders")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrders(){
         return service.getAllOrders();
     }
 
-    // todo add auth @PreAuthorize()
     @GetMapping("/order")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Order> getOrderById(@RequestParam Integer id){
         return service.getOrderById(id);
     }

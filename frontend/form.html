@@ -71,7 +71,7 @@
   <!--End of card layout-->
   <!--Start of Form-->
   <div class="container">
-    <h3 class="mt-5 mb-3 fw-bold">Checkout</h3>
+    <!-- h3 class="mt-5 mb-3 fw-bold">Checkout</h3>
     <div class="col-sm-7">
       <form class="form" id="myForm" novalidate>
         <div class="mb-3">
@@ -123,7 +123,10 @@
           </button>
         </div>
       </form>
-    </div>
+    </div-->
+    <button type="button" class="btn btn-custom text-white shadow rounded-pill" onclick="postOrder()">
+      Confirm order
+    </button>
   </div>
   <!--End of Form-->
   <!--Footer-->
@@ -158,7 +161,7 @@
   <!--Popup successful purchase-->
   <div class="modal fade" id="paymentAccepted" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm w-75 text-center">
-      <div class="modal-content rounded-5 border-0 shadow">
+      <div class="modal-content rounded-5 border-0 shadow"  id="purchase-modal">
         <div class="row d-flex align-items-center">
           <div class="modal-body pt-4">
             <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" style="fill: #6DB274"
@@ -167,7 +170,7 @@
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
             </svg>
           </div>
-          <h5 id="message"></h5>
+          <h5>Thank you for your purchase</h5>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-custom rounded-pill w-100 text-white" data-bs-dismiss="modal"
