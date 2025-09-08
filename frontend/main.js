@@ -99,11 +99,11 @@ const regexCity = new RegExp(/^[A-Za-zåäöÅÄÖ\s]{2,50}$/); //Done
 
 const validations = [regexName, regexPhone, regexEmail, regexStreet, regexZipCode, regexCity];
 
-//Adds eventlistener to form to perform validation
+/*//Adds eventlistener to form to perform validation
 document.addEventListener("DOMContentLoaded", () => {
   let form = document.getElementById("myForm");
   if (form != null) {
-    form.addEventListener("submit", validateFields);
+    form.addEventListener("click", postOrder());
   }
 });
 
@@ -156,13 +156,12 @@ function validateFields(e) {
     }
   }
 }
-//End of validation script
+//End of validation script*/
 
 //Post order to backend
-function postOrder(){
+function postOrder(e){
   let modal = new bootstrap.Modal(document.getElementById("paymentAccepted"));
   const modalInner = document.getElementById("purchase-modal");
-
   let cart = [];
 
   if (localStorage.getItem("cart") === null) {
@@ -173,7 +172,22 @@ function postOrder(){
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
             </svg>
           </div>
-          <h5 id="message">No products in cart</h5>
+          <h5>"No products in cart"</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-custom rounded-pill w-100 text-white" data-bs-dismiss="modal">Close</button>
+        </div>`;
+    modal.show();
+    return;
+  } else if (sessionStorage.getItem("jwt") === null){
+    modalInner.innerHTML = 
+      `<div class="row d-flex align-items-center">
+          <div class="modal-body pt-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="#ff0000c3" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+            </svg>
+          </div>
+          <h5>You must be logged in to order</h5>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-custom rounded-pill w-100 text-white" data-bs-dismiss="modal">Close</button>
