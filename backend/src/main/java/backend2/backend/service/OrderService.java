@@ -6,6 +6,7 @@ import backend2.backend.repository.AppUserRepository;
 import backend2.backend.repository.OrdersRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +21,9 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
-    public ResponseEntity<String> saveOrder(OrderDTO dto, String username){
+    public ResponseEntity<String> saveOrder(OrderDTO dto){
         try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Order order = new Order();
             order.setAppUser(userRepository.findByUsername(username).orElseThrow());
             order.setProductIdAndQty(dto.getProductIdAndQty());
