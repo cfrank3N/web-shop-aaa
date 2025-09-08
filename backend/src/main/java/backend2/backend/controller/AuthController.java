@@ -50,8 +50,8 @@ public class AuthController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
-    public String accessAdminView() {
-        return "You are an ADMIN";
+    public ResponseEntity<String> accessAdminView() {
+        return ResponseEntity.ok().body("Access granted");
     }
 
 }
