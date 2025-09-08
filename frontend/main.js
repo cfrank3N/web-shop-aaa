@@ -427,7 +427,7 @@ async function toggleAdminPanel() {
       adminText.textContent = "Admin";
       adminText.href = "admin.html";
       adminText.id = "adminLink";
-      adminText.classList.add("nav-link", "active");
+      adminText.classList.add("nav-link", "active", "text-danger");
       listItem.id = "adminListItem";
       listItem.classList.add("nav-item");
       listItem.appendChild(adminText);
