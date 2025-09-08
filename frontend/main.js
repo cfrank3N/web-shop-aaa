@@ -397,9 +397,12 @@ document.addEventListener("click", (e) => {
 
 async function toggleAdminPanel() {
   const token = sessionStorage.getItem("jwt");
+  const adminListItem = document.getElementById("adminListItem");
 
-  if (!token) {
-    if (adminListItem) adminListItem.remove();
+  if (token === null) {
+    if (adminListItem) {
+      adminListItem.remove();
+    }
     return;
   }
 
@@ -412,7 +415,6 @@ async function toggleAdminPanel() {
     });
 
     const navBar = document.getElementById("navBarList");
-    const adminListItem = document.getElementById("adminListItem");
 
     if (!response.ok && adminListItem !== null) {
       adminListItem.remove();
