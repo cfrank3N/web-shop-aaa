@@ -5,7 +5,6 @@ import backend2.backend.entities.Order;
 import backend2.backend.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,14 +24,14 @@ public class OrderController {
         return service.saveOrder(order);
     }
 
-    // todo add auth @PreAuthorize()
     @GetMapping("/orders")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Order>> getAllOrders(){
         return service.getAllOrders();
     }
 
-    // todo add auth @PreAuthorize()
     @GetMapping("/order")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Order> getOrderById(@RequestParam Integer id){
         return service.getOrderById(id);
     }

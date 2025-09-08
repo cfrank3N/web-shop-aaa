@@ -1,8 +1,8 @@
 package backend2.backend.service;
 
 import backend2.backend.dtos.OrderDTO;
+import backend2.backend.entities.AppUser;
 import backend2.backend.entities.Order;
-import backend2.backend.repository.AppUserRepository;
 import backend2.backend.repository.OrdersRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +14,15 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrdersRepository repo;
-    private final AppUserRepository userRepository; //go through service instead?
 
-    public OrderService(OrdersRepository repo, AppUserRepository userRepository) {
+    public OrderService(OrdersRepository repo) {
         this.repo = repo;
-        this.userRepository = userRepository;
     }
 
     public ResponseEntity<String> saveOrder(OrderDTO dto){
         try {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
             Order order = new Order();
-            order.setAppUser(userRepository.findByUsername(username).orElseThrow());
+            order.setAppUser((AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             order.setProductIdAndQty(dto.getProductIdAndQty());
 
             repo.save(order);
