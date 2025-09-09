@@ -13,7 +13,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "appuser_id", nullable = false)
     private AppUser appUser;
 
@@ -23,15 +23,40 @@ public class Order {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    public Order() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
+    }
+
+    public Map<Integer, Integer> getProductIdAndQty() {
+        return productIdAndQty;
     }
 
     public void setProductIdAndQty(Map<Integer, Integer> productIdAndQty) {
         this.productIdAndQty = productIdAndQty;
     }
 
-    public Order() {
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
