@@ -33,3 +33,4 @@ async function adminCheck() {
         console.log("An error occurred when calling the API");
     }
 }
+

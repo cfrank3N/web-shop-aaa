@@ -1,70 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your cart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your cart</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" type="text/css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
-
-<body onload="loadCart()">
-  <!--Nav-bar-->
-    <nav class="navbar sticky-top navbar-expand-sm navbar-light bg-white shadow-sm">
-    <div class="container my-3">
-      <a href="index.html" class="navbar-brand">
-        <h3 class="fw-bold">aaa</h3>
-      </a>
-      <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto d-flex align-items-center">
-          <li class="nav-item">
-            <a href="index.html" class="nav-link active">Home</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#aboutModal">About</a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link" onclick="scrollToBottom()">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a id="log-in-href" href="login.html" class="nav-link active">test</a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <a class="nav-link position-relative" href="form.html">
-              <img class="nav-icon" src="./img/nav/shopping-cart.png" alt="Shopping Cart Icon" height="20"
-                draggable="false">
-                <span id="cart-counter" class="position-absolute top-25 start-100 translate-middle badge rounded-pill btn-custom">
+  <body onload="loadCart()">
+    <!--Nav-bar-->
+    <nav
+      class="navbar sticky-top navbar-expand-sm navbar-light bg-white shadow-sm"
+    >
+      <div class="container my-3">
+        <a href="index.html" class="navbar-brand">
+          <h3 class="fw-bold">aaa</h3>
+        </a>
+        <button
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          class="navbar-toggler"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul
+            class="navbar-nav ms-auto d-flex align-items-center"
+            id="navBarList"
+          >
+            <li class="nav-item">
+              <a href="index.html" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="#"
+                class="nav-link"
+                data-bs-toggle="modal"
+                data-bs-target="#aboutModal"
+                >About</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" onclick="scrollToBottom()"
+                >Contact</a
+              >
+            </li>
+            <li class="nav-item">
+              <a id="log-in-href" href="login.html" class="nav-link active"
+                >test</a
+              >
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a class="nav-link position-relative" href="form.html">
+                <img
+                  class="nav-icon"
+                  src="./img/nav/shopping-cart.png"
+                  alt="Shopping Cart Icon"
+                  height="20"
+                  draggable="false"
+                />
+                <span
+                  id="cart-counter"
+                  class="position-absolute top-25 start-100 translate-middle badge rounded-pill btn-custom"
+                >
                   <span class="visually-hidden">items in cart</span>
                 </span>
-            </a>
-          </li>
-        </ul>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
+    <!--End of Nav-bar-->
+    <!--Start of card layout-->
+    <div class="container">
+      <h3 class="my-5 fw-bold">Your cart</h3>
     </div>
-  </nav>
-  <!--End of Nav-bar-->
-  <!--Start of card layout-->
-  <div class="container">
-    <h3 class="my-5 fw-bold">Your cart</h3>
-  </div>
-  <div class="container" id="cart-container">
-
-  </div>
-  <div class="container text-end">
-    <button type="button" class="btn btn-custom text-white rounded-pill" onclick="emptyCart()">
-      Empty cart
-    </button>
-  </div>
-  <!--End of card layout-->
-  <!--Start of Form-->
-  <div class="container">
-    <!-- h3 class="mt-5 mb-3 fw-bold">Checkout</h3>
+    <div class="container" id="cart-container"></div>
+    <div class="container text-end">
+      <button
+        type="button"
+        class="btn btn-custom text-white rounded-pill"
+        onclick="emptyCart()"
+      >
+        Empty cart
+      </button>
+    </div>
+    <!--End of card layout-->
+    <!--Start of Form-->
+    <div class="container">
+      <!-- h3 class="mt-5 mb-3 fw-bold">Checkout</h3>
     <div class="col-sm-7">
       <form class="form" id="myForm" novalidate>
         <div class="mb-3">
@@ -117,98 +157,156 @@
         </div>
       </form>
     </div-->
-    <button type="button" class="btn btn-custom text-white shadow rounded-pill" onclick="postOrder()">
-      Confirm order
-    </button>
-  </div>
-  <!--End of Form-->
-  <!--Footer-->
-  <footer class="bg-light text-center py-4 mt-5">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-3 text-start">
-          <h4>aaa</h4>
-          <p class="text-start">
-            We are five students from Nackademin, working together to develop and refine our skills in web development. 
-          </p>
-        </div>
-        <div class="col-md-3 text-start">
-          <h4 class="text-orange">Follow us</h4>
-          <a href="http://Facebook.com/" class="text-decoration-none text-dark"><i class="bi bi-facebook"></i>
-            Facebook</a><br>
-          <a href="http://x.com/" class="text-decoration-none text-dark"><i class="bi bi-twitter"></i> Twitter </a><br>
-          <a href="http://instagram.com/" class="text-decoration-none text-dark"><i
-              class="bi bi-instagram"></i> Instagram</a>
-        </div>
-      </div>
-      <div class="d-flex justify-content-between mt-4 text-secondary">
-        <p>Copyright © 2025</p>
-        <div>
-          <a href="TOS.html" class="text-decoration-none text-secondary me-4">Terms and Conditions</a>
-          <a href="#" class="text-decoration-none text-secondary">Privacy Policy</a>
-        </div>
-      </div>
+      <button
+        type="button"
+        class="btn btn-custom text-white shadow rounded-pill"
+        onclick="postOrder()"
+      >
+        Confirm order
+      </button>
     </div>
-  </footer>
-  <!--End of Footer-->
-  <!--Popup successful purchase-->
-  <div class="modal fade" id="paymentAccepted" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm w-75 text-center">
-      <div class="modal-content rounded-5 border-0 shadow"  id="purchase-modal">
-        <div class="row d-flex align-items-center">
-          <div class="modal-body pt-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" style="fill: #6DB274"
-              class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-              <path
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-            </svg>
+    <!--End of Form-->
+    <!--Footer-->
+    <footer class="bg-light text-center py-4 mt-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-3 text-start">
+            <h4>aaa</h4>
+            <p class="text-start">
+              We are five students from Nackademin, working together to develop
+              and refine our skills in web development.
+            </p>
           </div>
-          <h5>Thank you for your purchase</h5>
+          <div class="col-md-3 text-start">
+            <h4 class="text-orange">Follow us</h4>
+            <a
+              href="http://Facebook.com/"
+              class="text-decoration-none text-dark"
+              ><i class="bi bi-facebook"></i> Facebook</a
+            ><br />
+            <a href="http://x.com/" class="text-decoration-none text-dark"
+              ><i class="bi bi-twitter"></i> Twitter </a
+            ><br />
+            <a
+              href="http://instagram.com/"
+              class="text-decoration-none text-dark"
+              ><i class="bi bi-instagram"></i> Instagram</a
+            >
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-custom rounded-pill w-100 text-white" data-bs-dismiss="modal"
-            onclick="closeSuccessfulPurchaseModal()">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--End of popup successful purchase-->
-  <!-- About Us Pop-up -->
-  <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content rounded-5">
-        <div class="modal-header border-0 mb-0">
-          <button type="button" class="btn-close float-end mt-2 me-2" data-bs-dismiss="modal"
-            aria-label="Close"></button>
-        </div>
-        <div class="modal-body mx-4 mt-0">
-          <h1>Welcome to our test webshop!</h1> <br>
-          <p>
-            We are five students from Nackademin, working together to develop and refine our skills in web development
-            and
-            e-commerce. This project is part of our learning journey, where we experiment with different technologies,
-            design principles, and functionalities to create a fully functional online store.
-            <br>
-            Our goal is to build a user-friendly and efficient webshop while gaining hands-on experience in coding,
-            UX/UI
-            design, and business logic. This is a test project, so while things may change and evolve, we appreciate any
-            feedback as we continue to improve.
-            <br><br>
-            Thanks for checking out our site!
-            <br>
-          </p>
-          <div class="mb-4 mt-4"><button class="btn btn-custom px-4 py-2 rounded-5" data-bs-dismiss="modal"
-              aria-label="Close">Close</button>
+        <div class="d-flex justify-content-between mt-4 text-secondary">
+          <p>Copyright © 2025</p>
+          <div>
+            <a href="TOS.html" class="text-decoration-none text-secondary me-4"
+              >Terms and Conditions</a
+            >
+            <a href="#" class="text-decoration-none text-secondary"
+              >Privacy Policy</a
+            >
           </div>
         </div>
       </div>
+    </footer>
+    <!--End of Footer-->
+    <!--Popup successful purchase-->
+    <div
+      class="modal fade"
+      id="paymentAccepted"
+      tabindex="-1"
+      aria-labelledby="modalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-sm w-75 text-center">
+        <div
+          class="modal-content rounded-5 border-0 shadow"
+          id="purchase-modal"
+        >
+          <div class="row d-flex align-items-center">
+            <div class="modal-body pt-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="75"
+                height="75"
+                style="fill: #6db274"
+                class="bi bi-check-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"
+                />
+              </svg>
+            </div>
+            <h5>Thank you for your purchase</h5>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-custom rounded-pill w-100 text-white"
+              data-bs-dismiss="modal"
+              onclick="closeSuccessfulPurchaseModal()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- End of About Us Pop-up -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  <script src="main.js"></script>
-</body>
-
+    <!--End of popup successful purchase-->
+    <!-- About Us Pop-up -->
+    <div
+      class="modal fade"
+      id="aboutModal"
+      tabindex="-1"
+      aria-labelledby="aboutModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-5">
+          <div class="modal-header border-0 mb-0">
+            <button
+              type="button"
+              class="btn-close float-end mt-2 me-2"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body mx-4 mt-0">
+            <h1>Welcome to our test webshop!</h1>
+            <br />
+            <p>
+              We are five students from Nackademin, working together to develop
+              and refine our skills in web development and e-commerce. This
+              project is part of our learning journey, where we experiment with
+              different technologies, design principles, and functionalities to
+              create a fully functional online store.
+              <br />
+              Our goal is to build a user-friendly and efficient webshop while
+              gaining hands-on experience in coding, UX/UI design, and business
+              logic. This is a test project, so while things may change and
+              evolve, we appreciate any feedback as we continue to improve.
+              <br /><br />
+              Thanks for checking out our site!
+              <br />
+            </p>
+            <div class="mb-4 mt-4">
+              <button
+                class="btn btn-custom px-4 py-2 rounded-5"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of About Us Pop-up -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="main.js"></script>
+  </body>
 </html>
