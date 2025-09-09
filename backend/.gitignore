@@ -33,3 +33,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore local Spring properties
+application-local.properties
