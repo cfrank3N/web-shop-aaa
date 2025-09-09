@@ -118,14 +118,12 @@ function onOrderTableClick(e) {
 // Update order status
 async function deleteOrder(orderId) {
     const token = sessionStorage.getItem("jwt");
-    // const orderId = event.target.getAttribute('data-order-id');
     const response = await fetch(`http://localhost:8080/auth/orders/${orderId}`, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }
-
     });
 
-    if (!response.status == 400) return;
+    if (response.status === 404) return;
     if (!response.ok) {
         const body = await response.text().catch(() => '');
         throw new Error(`Failed to delete order: ${response.status} ${response.statusText} ${body}`);
