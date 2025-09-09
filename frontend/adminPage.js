@@ -2,7 +2,11 @@
 //     adminCheck();
 // });
 window.addEventListener("load", () => adminCheck());
-document.addEventListener('DOMContentLoaded', fetchOrders);
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('orderTableBody');
+    tableBody.addEventListener('click', onOrderTableClick);
+    fetchOrders()
+});
 
 
 async function adminCheck() {
@@ -59,20 +63,18 @@ function displayOrders(orders) {
     }
 
     orders.forEach(order => {
-        const itemsCount = order.productIdAndQty ? Object.keys(order.productIdAndQty).length : 0;
-        const customerId = order.appUser?.id ?? order.appUserId ?? '-';
+        const itemsCount = order.productIdAndQty ? Object.values(order.productIdAndQty)
+            .reduce((sum, qty) => sum + Number(qty || 0), 0) : 0;
+        const customerId = order.appUser?.id ?? order.customerId ?? '-';
         const created = order.createdAt ? new Date(order.createdAt).toLocaleString() : '-';
-        const totalSum = (order.totalSum ?? 0).toFixed(2);
 
         const row = document.createElement('tr');
-
         row.innerHTML = `
             <td class="text-center">${order.id}</td>
             <td class="text-center">${customerId}</td>
             <td class="text-center">${created}</td>
-            <td class="text-canter">${totalSum}</td>
-            <td>${order.items ? order.items.length : 0}</td>
-            <td>
+            <td class="text-center">${itemsCount}</td>
+            <td class="text-center">
                 <button class="btn btn-danger btn-sm delete-order-btn" data-order-id="${order.id}">
                     Delete
                 </button>
@@ -82,82 +84,50 @@ function displayOrders(orders) {
         tableBody.appendChild(row);
     });
 
-    // Add event listeners to update status buttons
-    document.querySelectorAll('.update-status-btn').forEach(button => {
-        button.addEventListener('click', updateOrderStatus);
-    });
+}
 
-    // Add event listeners to delete buttons
-    document.querySelectorAll('.delete-order-btn').forEach(button => {
-        button.addEventListener('click', deleteOrder);
-    });
+function onOrderTableClick(e) {
+    const btn = e.target.closest('.delete-order-btn');
+    if (!btn) return;
+
+    if (btn.dataset.deleting === '1') return;
+
+    const orderId = btn.getAttribute('data-order-id');
+    if (!confirm('Are you sure you want to delete this order?')) return;
+
+    btn.dataset.deleting = '1';
+    btn.disabled = true;
+
+    deleteOrder(orderId)
+        .then(() => {
+            document.getElementById('message').innerHTML =
+                '<div class="alert alert-success">Order deleted successfully!</div>';
+            fetchOrders();
+            setTimeout(() => { document.getElementById('message').innerHTML = ''; }, 3000);
+
+        })
+        .catch (err => {
+            console.error('Error when deleting order:', err);
+            document.getElementById('message').innerHTML =
+                '<div class="alert alert-danger">Failed to delete order.</div>';
+            btn.dataset.deleting = '';
+            btn.disabled = false;
+        });
 }
 
 // Update order status
-async function deleteOrder(event) {
-    const orderId = event.target.getAttribute('data-order-id');
+async function deleteOrder(orderId) {
     const token = sessionStorage.getItem("jwt");
+    // const orderId = event.target.getAttribute('data-order-id');
+    const response = await fetch(`http://localhost:8080/auth/orders/${orderId}`, {
+        method: 'DELETE',
+        headers: { "Authorization": `Bearer ${token}` }
 
-    if (!confirm('Are you sure you want to delete this order?')) return;
+    });
 
-    try {
-        const response = await fetch(`http://localhost:8080/auth/orders/${orderId}`, {
-            method: 'DELETE',
-            headers: {
-                "Authorization": `Bearer ${token}` }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to delete order');
-        }
-
-        document.getElementById('message').innerHTML =
-            '<div class="alert alert-success">Order deleted successfully!</div>';
-
-        // Refresh the orders list
-        fetchOrders();
-
-        // Auto-dismiss the message after 3 seconds
-        setTimeout(() => {
-            document.getElementById('message').innerHTML = '';
-        }, 3000);
-    } catch (error) {
-        console.error('Error deleting order:', error);
-        document.getElementById('message').innerHTML =
-            '<div class="alert alert-danger">Failed to delete order. Please try again.</div>';
+    if (!response.status == 400) return;
+    if (!response.ok) {
+        const body = await response.text().catch(() => '');
+        throw new Error(`Failed to delete order: ${response.status} ${response.statusText} ${body}`);
     }
-}
-
-function updateOrderStatus(event) {
-    const orderId = event.target.getAttribute('data-order-id');
-    const statusSelect = document.querySelector(`.status-select[data-order-id="${orderId}"]`);
-    const newStatus = statusSelect.value;
-
-    fetch(`/api/orders/${orderId}/status`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({status: newStatus})
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('message').innerHTML =
-                '<div class="alert alert-success">Order status updated successfully!</div>';
-
-            // Auto-dismiss the message after 3 seconds
-            setTimeout(() => {
-                document.getElementById('message').innerHTML = '';
-            }, 3000);
-        })
-        .catch(error => {
-            console.error('Error updating order status:', error);
-            document.getElementById('message').innerHTML =
-                '<div class="alert alert-danger">Failed to update order status. Please try again.</div>';
-        });
 }
