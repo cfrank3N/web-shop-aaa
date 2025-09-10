@@ -33,7 +33,7 @@ public class OrderService {
                     .body("Failed to place order " + e.getMessage());
         }
     }
-    // Is exception handling needed?
+
     public ResponseEntity<List<Order>> getAllOrders(){
         return ResponseEntity.ok().body(repo.findAll());
     }
