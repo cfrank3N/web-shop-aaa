@@ -30,9 +30,12 @@ public class OrderController {
         return service.getAllOrders();
     }
 
-    @GetMapping("/order")
+    @GetMapping("/orders/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Order> getOrderById(@RequestParam Integer id){
-        return service.getOrderById(id);
-    }
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) { return service.getOrderById(id); }
+
+    @DeleteMapping("/orders/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteOrder(@PathVariable Long id) { return service.deleteOrderById(id); }
+
 }

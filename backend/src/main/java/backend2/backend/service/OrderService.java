@@ -38,7 +38,18 @@ public class OrderService {
         return ResponseEntity.ok().body(repo.findAll());
     }
 
-    public ResponseEntity<Order> getOrderById(Integer id){
+    public ResponseEntity<Order> getOrderById(Long id){
         return ResponseEntity.ok().body(repo.findById(id).orElseThrow());
+    }
+
+    public ResponseEntity<String> deleteOrderById(Long id) {
+        try {
+            Order order = repo.findById(id).orElseThrow();
+            repo.delete(order);
+            return ResponseEntity.ok("Order deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Order not found or could not be deleted: " + e.getMessage());
+        }
     }
 }
