@@ -12,10 +12,6 @@ public class OrderDTO {
         this.productIdAndQty = productIdAndQty;
     }
 
-    public int getAppUserId() {
-        return appUserId;
-    }
-
     public Map<Integer, Integer> getProductIdAndQty() {
         return productIdAndQty;
     }
