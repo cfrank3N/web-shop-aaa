@@ -45,7 +45,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // for dev only, should be enabled in production
-                .cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults()) //Can add .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .authorizeHttpRequests(authorize ->
                         authorize.requestMatchers("/auth/login", "/api/**", "/register").permitAll()
                                 .anyRequest().authenticated())
