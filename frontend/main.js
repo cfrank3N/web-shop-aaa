@@ -7,7 +7,7 @@ function loadCart() {
     cartOutput = `<h4 class="ms-5">... is empty</h4>`;
   } else {
     cart = JSON.parse(localStorage.getItem("cart"));
-    for (let i in cart) {
+    for (let i = 0; i < cart.length; i++) {
       cartOutput += `
       <div class="row my-3">
         <div class="col-sm-9">

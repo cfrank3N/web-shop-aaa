@@ -23,6 +23,7 @@ public class Order {
     @CreationTimestamp
     private Timestamp createdAt;
 
+
     public Order() {
 
     }
@@ -43,6 +44,7 @@ public class Order {
         this.appUser = appUser;
     }
 
+
     public Map<Integer, Integer> getProductIdAndQty() {
         return productIdAndQty;
     }
@@ -50,6 +52,7 @@ public class Order {
     public void setProductIdAndQty(Map<Integer, Integer> productIdAndQty) {
         this.productIdAndQty = productIdAndQty;
     }
+
 
     public Timestamp getCreatedAt() {
         return createdAt;
