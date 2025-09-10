@@ -13,9 +13,9 @@ import java.util.function.Function;
 public class JwtUtil {
 
     //Bad practice but this is the sha256sum of webshopaaa
-    private String secretKey = "84e7478e97c03706e9e99c6e030e7ff35d08b8395454cae56d8fb7afca103f9f";
+    //TODO: Move key to .env or properties file. Also change the deprecated methods to the recommended ones
+    private final String secretKey = "84e7478e97c03706e9e99c6e030e7ff35d08b8395454cae56d8fb7afca103f9f";
 
-    //TODO: Lägga till claim och ta in UserDetails istället.
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())

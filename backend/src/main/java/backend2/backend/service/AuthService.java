@@ -29,11 +29,7 @@ public class AuthService {
 
         AppUser customer = optionalCustomer.get();
 
-        if (!passwordEncoder.matches(appUser.getPassword(), customer.getPassword())) {
-            return false;
-        }
-
-        return true;
+        return passwordEncoder.matches(appUser.getPassword(), customer.getPassword());
     }
 
     public UserDetails getAppUserByUsername(String username) {

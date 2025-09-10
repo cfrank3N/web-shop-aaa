@@ -1,6 +1,5 @@
 package backend2.backend.entities;
 
-import io.netty.handler.codec.socks.SocksAuthRequest;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,7 +27,6 @@ public class AppUser implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "authority_id")
     )
     private List<Authority> authorities;
-    //Add list of orders. Have to decide if we want to have it be embeddable or not
 
     public AppUser(String username, String password) {
         this.username = username;
