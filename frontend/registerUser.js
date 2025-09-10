@@ -26,7 +26,7 @@ async function registerUser(e) {
   }
 
   try {
-    const response = await fetch("http://localhost:8080/register", {
+    const response = await fetch("http://localhost:8080/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

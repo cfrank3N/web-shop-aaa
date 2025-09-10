@@ -19,7 +19,7 @@ public class RegistrationController {
         this.appUserService = appUserService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public ResponseEntity<String> handleRegistration(@RequestBody AppUserDTO appUser) {
         return appUserService.registerCustomer(appUser);
     }
