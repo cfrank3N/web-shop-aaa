@@ -22,19 +22,11 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody AppUserDTO appUser) {
 
-        //validate user here from AuthService Class
-
-        //Test sout's
-        System.out.println("Authorities: " + appUser.getAuthorities());
-        System.out.println("Username: " + appUser.getUsername());
-        System.out.println("Password: " + appUser.getPassword());
-
         if (service.validateUserCredentials(appUser)) {
             return ResponseEntity.ok().body(jwtUtil.generateToken(service.getAppUserByUsername(appUser.getUsername())));
         } else {
             return ResponseEntity.badRequest().body("Invalid password or Username");
         }
-
     }
 
     @GetMapping("/restricted-view")
